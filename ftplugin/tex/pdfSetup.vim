@@ -7,12 +7,12 @@ let b:pl_plugin = 1
 function! PdfBuild() 
     update
     let b:root = expand("%:r")
-    call jobstart('pdflatex -interaction=nonstopmode -file-line-error -halt-on-error ' . b:root . ".tex")
+    call jobstart('pdflatex -interaction=nonstopmode -file-line-error -halt-on-error ' . b:root . ".tex &")
     if match(readfile(b:root . ".log"), "run Biber")
-	call system("biber " . b:root . ".tex")
+	call system("biber " . b:root . ".tex &")
     endif
     if match(readfile(b:root . ".log"), "rerun")
-	call system("pdflatex -interaction=nonstopmode -file-line-error -halt-on-error" . b:root . ".tex")
+	call system("pdflatex -interaction=nonstopmode -file-line-error -halt-on-error" . b:root . ".tex &")
     endif
 endfunction!
 
