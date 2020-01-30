@@ -23,3 +23,5 @@ endfunction!
 
 autocmd filetype *tex nnoremap <leader>p :call PdfSync()<CR>
 autocmd filetype *tex nnoremap <leader>b :call PdfBuild()<CR>
+
+
