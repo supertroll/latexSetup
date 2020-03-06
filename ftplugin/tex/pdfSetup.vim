@@ -21,6 +21,27 @@ function! PdfSync()
     call jobstart('zathura -x "nvr --servername ' . expand("%:t:r") . ' --remote +%{line} %{input}" ' . '--synctex-forward ' . line(".") . ":" . col(".") . ":" . shellescape(expand("%:t")) . " '" . expand("%:t:r") . ".pdf'")
 endfunction!
 
+" create a text object for environments
+fun! s:environment(ia)
+    normal! ^
+    let l:vCol = virtcol(getline('.') =~# '^\s*$' ? '$' : '.') - &softtabstop
+    let l:start = search('^\s*\%'.l:vCol.'v\\begin{[^\n]*}', 'bWn')
+    let l:end = search('^\s*\%'.l:vCol.'v\\end{[^\n]*}','Wn')
+
+    if (a:ia == 'i')
+	let l:start += 1
+	let l:end -= 1
+    endif
+
+    execute 'normal! '.l:start.'G0V'.l:end.'G$o'
+endfun!
+
+xnoremap ie :<c-u>call <sid>environment('i')<cr>
+onoremap ie :<c-u>call <sid>environment('i')<cr>
+
+xnoremap ae :<c-u>call <sid>environment('a')<cr>
+onoremap ae :<c-u>call <sid>environment('a')<cr>
+
 nnoremap <leader>p :call PdfSync()<CR>
 nnoremap <leader>b :call PdfBuild()<CR>
 " latex shortcuts
