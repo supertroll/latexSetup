@@ -7,13 +7,14 @@ let b:pl_plugin = 1
 function! PdfBuild() 
     update
     let b:root = expand("%:r")
-    call jobstart('pdflatex -interaction=nonstopmode -file-line-error -halt-on-error ' . b:root . ".tex &")
-    if match(readfile(b:root . ".log"), "run Biber")
-	call system("biber " . b:root . ".tex &")
+    call execute('!pdflatex --synctex=1 ' . b:root . ".tex")
+    if match(readfile(b:root . ".log"), "run Biber") > -1
+	call execute("!biber " . b:root)
+	call execute("!pdflatex --synctex=1 " . b:root . ".tex")
     endif
-    if match(readfile(b:root . ".log"), "rerun")
-	call system("pdflatex -interaction=nonstopmode -file-line-error -halt-on-error" . b:root . ".tex &")
-    endif
+    call execute("!ln -f " . b:root . ".pdf ..")
+    echo "done"
+    unlet b:root
 endfunction!
 
 " create a pdf an opens it in zathura
