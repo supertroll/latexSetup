@@ -60,5 +60,7 @@ inoremap \tab<Space> \begin{tabular}{<}<CR><++><CR>\end{tabular}<CR><++><Esc>3kf
 inoremap \it<Space> \begin{itemize}<CR><CR>\end{itemize}<CR><++><Esc>2ki
 inoremap \en<Space> \begin{enumerate}<CR><CR>\end{enumerate}<CR><++><Esc>2ki
 inoremap \ds<Space> \begin{description}<CR><CR>\end{description}<CR><++><Esc>2ki
+inoremap \ali<Space> \begin{align}<CR><CR>\end{align}<CR><++><Esc>2ki
+i
 inoremap \i<Space> \item<Space>
 
