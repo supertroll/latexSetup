@@ -39,7 +39,7 @@ endfun!
 
 fun Fraction()
     if getline('.')[col('.')-1] == ')'
-	exe "normal! %xi\\frac{\<Esc>l%xa}{}<++>\<Esc>F{l"
+	exe "normal! %xi\\frac{\<Esc>lf)xa}{}<++>\<Esc>F{l"
 	startinsert
     elseif getline('.')[col('.')-1] != ' '
 	exe "normal! Bi\\frac{\<Esc>Ea}{}<++>\<Esc>F{l"
