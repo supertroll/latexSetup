@@ -41,14 +41,14 @@ fun Fraction()
     if getline('.')[col('.')-1] == ')'
 	exe "normal! %xi\\frac{\<Esc>lf)xa}{}<++>\<Esc>F{l"
 	startinsert
-    elseif getline('.')[col('.')-1] != ' '
-	exe "normal! Bi\\frac{\<Esc>Ea}{}<++>\<Esc>F{l"
+    elseif getline('.')[col('.')-1] == "\d"
+	exe "normal! \?\\ \\d*\\%#\<CR>a\\frac{\<Esc>Ea}{}<++>\<Esc>F{l"
 	startinsert
     else
 	exe "normal! i \\frac{}{<++>}<++>\<Esc>?{}\<CR>l"
 	startinsert
     endif
-endfun 
+endfun
 
 xnoremap ie :<c-u>call <sid>environment('i')<cr>
 onoremap ie :<c-u>call <sid>environment('i')<cr>
@@ -79,3 +79,4 @@ inoremap // <Esc>:call Fraction()<CR>
 inoremap \d<Space> \Delta<Space>
 inoremap \sum<Space> \sum_{}^{<++>}<++><Esc>?{}<CR>a
 inoremap \lim<Space> \lim_{}<++><Esc>?{}<CR>a
+inoremap \int<Space> \int_{}^{<++>}<++><Esc>?{}<CR>a
